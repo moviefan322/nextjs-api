@@ -13,6 +13,10 @@ type Props = {
 function SingleProduct(props: Props) {
   const { loadedProduct } = props;
 
+  if (!loadedProduct) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <h1>{loadedProduct.title}</h1>
@@ -51,6 +55,10 @@ export async function getStaticProps(context: any) {
     (product: any) => product.id === productId
   );
 
+  if (!product) {
+    return { notFound: true };
+  }
+
   return {
     props: {
       loadedProduct: product,
@@ -68,7 +76,7 @@ export async function getStaticPaths() {
   // fallback: "blocking" means that "not found" pages will be resolved into a fallback page, but only after the data is loaded
   return {
     paths: params,
-    fallback: false,
+    fallback: true,
   };
 }
 
