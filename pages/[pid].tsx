@@ -47,4 +47,18 @@ export async function getStaticProps(context: any) {
   };
 }
 
+export async function getStaticPaths() {
+  // fallback: false means that "not found" pages will be resolved into 404 pages
+  // fallback: true means that "not found" pages will be resolved into a fallback page
+  // fallback: "blocking" means that "not found" pages will be resolved into a fallback page, but only after the data is loaded
+  return {
+    paths: [
+      { params: { pid: "p1" } },
+      { params: { pid: "p2" } },
+      { params: { pid: "p3" } },
+    ],
+    fallback: false,
+  };
+}
+
 export default SingleProduct;
